@@ -20,6 +20,7 @@ namespace Eaconomy.Infrastructure
              options.UseSqlite(mySqlLiteConnectionStr ??
              throw new InvalidOperationException("Connection string mySqlLiteConnectionStr does not found."))
              );
+            services.AddSingleton<EaconomyDBReadContext>();
             services.AddTransient<IEmployeeRepository, EmployeeRepository>();
             return services;
         }

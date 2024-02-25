@@ -2,22 +2,20 @@
 using Eaconomy.Domain.Entities;
 using Eaconomy.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Dapper;
+
 
 namespace Eaconomy.Infrastructure.Repository
 {
     public class EmployeeRepository : IEmployeeRepository
     {
         private readonly EaconomyDBContext eaconomyDBContext;
+        private readonly EaconomyDBReadContext eaconomyDBReadContext;
 
-        public EmployeeRepository(EaconomyDBContext eaconomyDBContext)
+        public EmployeeRepository(EaconomyDBContext eaconomyDBContext, EaconomyDBReadContext eaconomyDBReadContext)
         {
             this.eaconomyDBContext = eaconomyDBContext;
+            this.eaconomyDBReadContext = eaconomyDBReadContext;
         }
 
         public async Task<Employee> Create(Employee entity)
@@ -37,10 +35,21 @@ namespace Eaconomy.Infrastructure.Repository
             return await eaconomyDBContext.Employees.ToListAsync();
         }
 
+        //public async Task<Employee> GetById(int id)
+        //{
+        //    return await eaconomyDBContext.Employees.AsNoTracking().
+        //        FirstOrDefaultAsync(emp => emp.Id==id);
+        //}
+        //using dapper
         public async Task<Employee> GetById(int id)
         {
-            return await eaconomyDBContext.Employees.AsNoTracking().
-                FirstOrDefaultAsync(emp => emp.Id==id);
+            var sql = "SELECT * FROM Employees where id=@id";
+            using (var connection = eaconomyDBReadContext.CreateConnection())
+            {
+                connection.Open();
+                var result = await connection.QueryFirstAsync<Employee>(sql, new { id = id });
+                return result;
+            }
         }
 
         public async Task<Employee> Update(Employee entity)
