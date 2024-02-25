@@ -7,6 +7,6 @@ namespace Eaconomy.Application.Features.Employee.Requests.Commands
 {
     public class CreateEmployeeCommand : IRequest<BaseCommandResponse>
     {
-        public CreateEmployeeDTO CreateEmployeeDTO { get;}
+        public CreateEmployeeDTO CreateEmployeeDTO { get; set; }
     }
 }

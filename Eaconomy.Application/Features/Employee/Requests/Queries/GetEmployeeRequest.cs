@@ -10,6 +10,6 @@ namespace Eaconomy.Application.Features.Employee.Requests.Queries
 {
     public class GetEmployeeRequest : IRequest<EmployeeDTO>
     {
-        public int EmployeeId { get; }
+        public int EmployeeId { get; set; }
     }
 }

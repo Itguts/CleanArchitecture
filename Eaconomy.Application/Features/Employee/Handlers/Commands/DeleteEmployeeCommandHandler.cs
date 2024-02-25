@@ -25,6 +25,7 @@ namespace Eaconomy.Application.Features.Employee.Handlers.Commands
         {
             var response = new BaseCommandResponse();
             await EmployeeRepository.Delete(request.EmployeeId);
+            response.Message = "Employee deleted successfully";
             response.Id = (int)request.EmployeeId;
             response.Success = true;
             return response;

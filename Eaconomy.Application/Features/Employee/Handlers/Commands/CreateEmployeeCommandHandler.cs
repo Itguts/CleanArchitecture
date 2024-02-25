@@ -36,6 +36,7 @@ namespace Eaconomy.Application.Features.Employee.Handlers.Commands
             {
                 var employee = mapper.Map<Domain.Entities.Employee>(request.CreateEmployeeDTO);
                 await employeeRepository.Create(employee);
+                response.Message = "Employee created successfully";
                 response.Id = (int)employee.Id;
                 response.Success = true;
             }

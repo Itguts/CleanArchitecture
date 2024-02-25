@@ -11,7 +11,7 @@ namespace Eaconomy.API.Controllers
     {
         private ISender _mediatr;
 
-        protected ISender Mediatr => _mediatr ?? = HttpContext.RequestServices.GetRequiredService<ISender>();
+        protected ISender Mediatr => _mediatr ??  HttpContext.RequestServices.GetRequiredService<ISender>();
         protected IActionResult SwitchResponse(ResponseType responseType)
         {
             return responseType switch

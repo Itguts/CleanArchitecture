@@ -11,6 +11,6 @@ namespace Eaconomy.Application.Features.Employee.Requests.Commands
 {
     public class UpdateEmployeeCommand : IRequest<BaseCommandResponse>
     {
-        public EmployeeDTO EmployeeDTO { get; }
+        public EmployeeDTO EmployeeDTO { get; set; }
     }
 }

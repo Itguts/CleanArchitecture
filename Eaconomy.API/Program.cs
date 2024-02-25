@@ -1,5 +1,11 @@
+using Eaconomy.Application;
+using Eaconomy.Infrastructure;
 var builder = WebApplication.CreateBuilder(args);
 
+//Adding Services to the Layers
+
+builder.Services.ConfigureApplicationServices();
+builder.Services.ConfigureInfrastructureServices(builder.Configuration);
 // Add services to the container.
 
 builder.Services.AddControllers();

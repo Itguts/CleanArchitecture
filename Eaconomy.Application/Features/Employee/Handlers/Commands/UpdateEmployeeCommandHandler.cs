@@ -35,6 +35,7 @@ namespace Eaconomy.Application.Features.Employee.Handlers.Commands
             {
                 var employee = _mapper.Map<Domain.Entities.Employee>(request.EmployeeDTO);
                 await _employeeRepository.Update(employee);
+                response.Message = "Employee updated successfully";
                 response.Id = (int)employee.Id;
                 response.Success = true;
             }
