@@ -6,6 +6,8 @@ using Eaconomy.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Eaconomy.Application.Repositories;
 using Eaconomy.Infrastructure.Repository;
+using Eaconomy.Infrastructure.Security;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Eaconomy.Infrastructure
 {
@@ -20,8 +22,21 @@ namespace Eaconomy.Infrastructure
              options.UseSqlite(mySqlLiteConnectionStr ??
              throw new InvalidOperationException("Connection string mySqlLiteConnectionStr does not found."))
              );
-            services.AddSingleton<EaconomyDBReadContext>();
-            services.AddTransient<IEmployeeRepository, EmployeeRepository>();
+            services.AddScoped<EaconomyDBReadContext>();
+            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            services.AddScoped<IUserRepository, UsersRepository>();
+            services.AddScoped<ITokenRepository, TokenRepository>();
+          
+
+            services.Configure<JwtSettings>(configuration.GetSection(JwtSettings.Section));
+
+           
+
+            services
+                .ConfigureOptions<JwtBearerTokenValidationConfiguration>()
+                .AddAuthentication(defaultScheme: JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer();
+
             return services;
         }
     }

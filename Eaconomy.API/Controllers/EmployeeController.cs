@@ -1,6 +1,7 @@
 ﻿using Eaconomy.Application.DTO.Employee;
 using Eaconomy.Application.Features.Employee.Requests.Commands;
 using Eaconomy.Application.Features.Employee.Requests.Queries;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,7 +9,7 @@ namespace Eaconomy.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-
+    [Authorize(Roles = "Admin")]
     public class EmployeeController : ProjectBaseController
     {
         [HttpGet]

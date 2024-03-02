@@ -20,6 +20,10 @@
     <Folder Include="Common\Behaviors\" />
     <Folder Include="Common\Exceptions\" />
     <Folder Include="Common\Authentication\" />
+    <Folder Include="Features\Role\Handlers\Commands\" />
+    <Folder Include="Features\Role\Handlers\Queries\" />
+    <Folder Include="Features\Role\Requests\Commands\" />
+    <Folder Include="Features\Role\Requests\Queries\" />
   </ItemGroup>
 
 </Project>

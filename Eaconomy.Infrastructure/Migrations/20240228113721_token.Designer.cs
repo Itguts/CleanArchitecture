@@ -3,6 +3,7 @@ using System;
 using Eaconomy.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Eaconomy.Infrastructure.Migrations
 {
     [DbContext(typeof(EaconomyDBContext))]
-    partial class EaconomyDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240228113721_token")]
+    partial class token
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.2");
@@ -75,7 +78,7 @@ namespace Eaconomy.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("tblRole");
+                    b.ToTable("Roles");
                 });
 
             modelBuilder.Entity("Eaconomy.Domain.Entities.Identity.Users", b =>
@@ -105,7 +108,7 @@ namespace Eaconomy.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("tblUser");
+                    b.ToTable("Users");
                 });
 #pragma warning restore 612, 618
         }
