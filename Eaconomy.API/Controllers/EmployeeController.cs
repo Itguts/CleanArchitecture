@@ -9,7 +9,7 @@ namespace Eaconomy.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Employee")]
     public class EmployeeController : ProjectBaseController
     {
         [HttpGet]

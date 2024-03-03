@@ -17,12 +17,12 @@ namespace Eaconomy.Infrastructure.Security
         {
             options.TokenValidationParameters = new TokenValidationParameters
             {
-                //ValidateIssuer = true,
-                //ValidateAudience = true,
+                ValidateIssuer = false,
+                ValidateAudience = false,
                 ValidateLifetime = true,
                 ValidateIssuerSigningKey = true,
-                //ValidIssuer = _jwtSettings.Issuer,
-                //ValidAudience = _jwtSettings.Audience,
+                ValidIssuer = _jwtSettings.Issuer,
+                ValidAudience = _jwtSettings.Audience,
 
                 IssuerSigningKey = new SymmetricSecurityKey(
                     Encoding.UTF8.GetBytes(_jwtSettings.Secret)),
