@@ -2,16 +2,16 @@ using Eaconomy.Application.Common.Responses;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Eaconomy.API.Controllers
+namespace Eaconomy.API.Controllers.V1
 {
     [ApiController]
-    [Route("api/[controller]")]
+   
 
     public class ProjectBaseController : ControllerBase
     {
         private ISender _mediatr;
 
-        protected ISender Mediatr => _mediatr ??  HttpContext.RequestServices.GetRequiredService<ISender>();
+        protected ISender Mediatr => _mediatr ?? HttpContext.RequestServices.GetRequiredService<ISender>();
         protected IActionResult SwitchResponse(ResponseType responseType)
         {
             return responseType switch
@@ -20,7 +20,7 @@ namespace Eaconomy.API.Controllers
                 ResponseType.NotFound => NotFound(),
                 ResponseType.Forbidden => StatusCode(403),
                 ResponseType.InternalServerError => StatusCode(500),
-                _ => BadRequest(base.ModelState),
+                _ => BadRequest(ModelState),
             };
         }
 

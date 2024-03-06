@@ -1,14 +1,17 @@
-﻿using Eaconomy.Application.DTO.Employee;
+﻿using Asp.Versioning;
+using Eaconomy.API.Controllers.V1;
+using Eaconomy.Application.DTO.Employee;
 using Eaconomy.Application.Features.Employee.Requests.Commands;
 using Eaconomy.Application.Features.Employee.Requests.Queries;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Eaconomy.API.Controllers
+namespace Eaconomy.API.Controllers.V2
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [ApiVersion(2)]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [Authorize(Roles = "Employee")]
     public class EmployeeController : ProjectBaseController
     {
@@ -31,7 +34,7 @@ namespace Eaconomy.API.Controllers
         [Route("CreateEmployee")]
         public async Task<IActionResult> CreateEmployee([FromBody] CreateEmployeeDTO employee)
         {
-            var response = await Mediatr.Send(new CreateEmployeeCommand() { CreateEmployeeDTO = employee});
+            var response = await Mediatr.Send(new CreateEmployeeCommand() { CreateEmployeeDTO = employee });
             return Ok(response);
         }
         [HttpPut]
