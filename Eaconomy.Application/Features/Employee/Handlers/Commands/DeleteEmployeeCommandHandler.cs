@@ -13,18 +13,20 @@ namespace Eaconomy.Application.Features.Employee.Handlers.Commands
 {
     public class DeleteEmployeeCommandHandler : IRequestHandler<DeleteEmployeeCommand, BaseCommandResponse>
     {
-        private readonly IEmployeeRepository EmployeeRepository;
+        //private readonly IEmployeeRepository EmployeeRepository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper Mapper;
-        public DeleteEmployeeCommandHandler(IEmployeeRepository employeeRepository, IMapper mapper)
+        public DeleteEmployeeCommandHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
             this.Mapper = mapper;
-            this.EmployeeRepository = employeeRepository;
+            //  this.EmployeeRepository = employeeRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<BaseCommandResponse> Handle(DeleteEmployeeCommand request, CancellationToken cancellationToken)
         {
             var response = new BaseCommandResponse();
-            await EmployeeRepository.Delete(request.EmployeeId);
+            await _unitOfWork.EmployeeRepository.Delete(request.EmployeeId);
             response.Message = "Employee deleted successfully";
             response.Id = (int)request.EmployeeId;
             response.Success = true;

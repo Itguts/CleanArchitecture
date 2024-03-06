@@ -9,11 +9,13 @@ namespace Eaconomy.Application.Features.Employee.Handlers.Commands
 {
     public class UpdateEmployeeCommandHandler : IRequestHandler<UpdateEmployeeCommand, BaseCommandResponse>
     {
-        private readonly IEmployeeRepository _employeeRepository;
+        //  private readonly IEmployeeRepository _employeeRepository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        public UpdateEmployeeCommandHandler(IEmployeeRepository employeeRepository, IMapper mapper)
+        public UpdateEmployeeCommandHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _employeeRepository = employeeRepository;
+            // _employeeRepository = employeeRepository;
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
 
@@ -34,7 +36,7 @@ namespace Eaconomy.Application.Features.Employee.Handlers.Commands
             else
             {
                 var employee = _mapper.Map<Domain.Entities.Employee>(request.EmployeeDTO);
-                await _employeeRepository.Update(employee);
+                await _unitOfWork.EmployeeRepository.Update(employee);
                 response.Message = "Employee updated successfully";
                 response.Id = (int)employee.Id;
                 response.Success = true;

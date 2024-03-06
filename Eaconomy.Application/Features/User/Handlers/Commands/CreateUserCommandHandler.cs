@@ -15,11 +15,13 @@ namespace Eaconomy.Application.Features.User.Handlers.Commands
 {
     public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, BaseCommandResponse>
     {
-        private readonly IUserRepository userRepository;
+        //private readonly IUserRepository userRepository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper mapper;
-        public CreateUserCommandHandler(IEmployeeRepository employeeRepository, IMapper mapper)
+        public CreateUserCommandHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            this.userRepository = userRepository;
+            //this.userRepository = userRepository;
+            _unitOfWork = unitOfWork;
             this.mapper = mapper;
         }
 
@@ -40,7 +42,7 @@ namespace Eaconomy.Application.Features.User.Handlers.Commands
             else
             {
                 var user = mapper.Map<Domain.Entities.Identity.Users>(request.CreateUserDTO);
-                await userRepository.CreateUser(user);
+                await _unitOfWork.UserRepository.CreateUser(user);
                 response.Message = "User created successfully";
                 response.Id = (int)user.Id;
                 response.Success = true;

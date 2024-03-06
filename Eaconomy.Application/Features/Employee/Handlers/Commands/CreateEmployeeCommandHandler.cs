@@ -10,11 +10,13 @@ namespace Eaconomy.Application.Features.Employee.Handlers.Commands
 {
     partial class CreateEmployeeCommandHandler : IRequestHandler<CreateEmployeeCommand, BaseCommandResponse>
     {
-        private readonly IEmployeeRepository employeeRepository;
+        // private readonly IEmployeeRepository employeeRepository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper mapper;
-        public CreateEmployeeCommandHandler(IEmployeeRepository employeeRepository, IMapper mapper)
+        public CreateEmployeeCommandHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            this.employeeRepository = employeeRepository;
+            // this.employeeRepository = employeeRepository;
+            _unitOfWork = unitOfWork;
             this.mapper = mapper;
         }
 
@@ -35,7 +37,7 @@ namespace Eaconomy.Application.Features.Employee.Handlers.Commands
             else
             {
                 var employee = mapper.Map<Domain.Entities.Employee>(request.CreateEmployeeDTO);
-                await employeeRepository.Create(employee);
+                await _unitOfWork.EmployeeRepository.Create(employee);
                 response.Message = "Employee created successfully";
                 response.Id = (int)employee.Id;
                 response.Success = true;

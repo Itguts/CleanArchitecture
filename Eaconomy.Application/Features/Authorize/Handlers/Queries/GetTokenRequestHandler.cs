@@ -14,18 +14,20 @@ namespace Eaconomy.Application.Features.Authorize.Handlers.Queries
 {
     public class GetTokenRequestHandler : IRequestHandler<GetTokenRequest, TokenResponse>
     {
-        private readonly ITokenRepository tokenRepository;
+        //private readonly ITokenRepository tokenRepository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper mapper;
 
-        public GetTokenRequestHandler(ITokenRepository tokenRepository, IMapper mapper)
+        public GetTokenRequestHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            this.tokenRepository = tokenRepository;
+           // this.tokenRepository = tokenRepository;
+           _unitOfWork = unitOfWork;
             this.mapper = mapper;
         }
 
         public async Task<TokenResponse> Handle(GetTokenRequest request, CancellationToken cancellationToken)
         {
-            var tokenRepsonse = await tokenRepository.GetToken(request.UserEmail, request.Password);
+            var tokenRepsonse = await _unitOfWork.TokenRepository.GetToken(request.UserEmail, request.Password);
             //return mapper.Map<EmployeeDTO>(employee);
             return tokenRepsonse;
         }

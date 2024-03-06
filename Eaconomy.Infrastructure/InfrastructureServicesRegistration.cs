@@ -23,10 +23,11 @@ namespace Eaconomy.Infrastructure
              throw new InvalidOperationException("Connection string mySqlLiteConnectionStr does not found."))
              );
             services.AddScoped<EaconomyDBReadContext>();
-            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
-            services.AddScoped<IUserRepository, UsersRepository>();
-            services.AddScoped<ITokenRepository, TokenRepository>();
-          
+            //services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            //services.AddScoped<IUserRepository, UsersRepository>();
+            //services.AddScoped<ITokenRepository, TokenRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
 
             services.Configure<JwtSettings>(configuration.GetSection(JwtSettings.Section));
 
