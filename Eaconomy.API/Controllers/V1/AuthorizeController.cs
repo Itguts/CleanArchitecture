@@ -16,7 +16,7 @@ namespace Eaconomy.API.Controllers.V1
         [HttpPost("GenerateToken")]
         public async Task<IActionResult> GenerateToken([FromBody] ValidateUserDTO userCred)
         {
-            throw new Exception("Explicit Error");
+          
             var tokenResponse = await Mediatr.Send(new GetTokenRequest() { UserEmail = userCred.Email, Password = userCred.Password });
             if (tokenResponse == null)
             {

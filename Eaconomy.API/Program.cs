@@ -18,7 +18,7 @@ builder.Services.ConfigureInfrastructureServices(builder.Configuration);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-IApiVersionDescriptionProvider provider = null;
+IApiVersionDescriptionProvider provider;
 
 builder.Services.AddSwaggerGen(opt =>
 {
@@ -94,7 +94,7 @@ var app = builder.Build();
 provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 {
    
     app.UseSwagger();
